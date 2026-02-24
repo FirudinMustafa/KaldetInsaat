@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node scripts/update-pdf.js:*)",
+      "Bash(node check-services.js:*)",
+      "Bash(node test-quote.js:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout:*)",
+      "Bash(npx prisma db push:*)",
+      "Bash(curl:*)",
+      "Bash(node check-quotes.js:*)",
+      "Bash(dir \"C:\\\\Users\\\\DELL\\\\OneDrive\\\\Desktop\\\\firudin\\\\KaldetInsaat\\\\public\")",
+      "Bash(npx tsx scripts/seed-blog.ts)",
+      "Bash(npx prisma studio)",
+      "Bash(dir:*)",
+      "Bash(npx tsx:*)",
+      "Bash(taskkill:*)",
+      "Bash(copy:*)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(ping:*)",
+      "Bash(rd /s /q \"src\\\\app\\\\admin\\\\\\(dashboard\\)\\\\ekip\")",
+      "Bash(powershell -Command \"Get-Process -Name ''node'' -ErrorAction SilentlyContinue | Stop-Process -Force\")",
+      "WebFetch(domain:localhost)",
+      "Bash(sqlite3:*)",
+      "WebFetch(domain:basaridagitim.com)",
+      "Bash(TOKEN=\"NpIGOfJ2qXpxBAyZUsXCh5HCjZ5OhzwnJwHkMBcMo19DYe-JL8-VNcwUL1fQSP46w9wBrVn8gHvFJMF1oZo3NTdmPJSSdiLo9R2cU4Ftx7A1\")",
+      "Bash(TOKEN=\"GESaL3OcI2wpKlUBe3p_Dfc5IGyIDZY978CXrRocGlY3PDUxVK_w9GV7C4mO8dKIcqiylWNlXdsUpLOZAUmYkysakAWWUE1VMlgmJx7y5rc1\")",
+      "Bash(py:*)",
+      "Bash(where:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

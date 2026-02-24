@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Toyota",
+    "logo": "/images/clients/toyota.png"
+  },
+  {
+    "name": "Enerjisa",
+    "logo": "/images/clients/enerjisa.png"
+  },
+  {
+    "name": "Reysaş",
+    "logo": "/images/clients/reysas.png"
+  },
+  {
+    "name": "CEVA Lojistik",
+    "logo": "/images/clients/ceva-lojistik.png"
+  },
+  {
+    "name": "Ekol Lojistik",
+    "logo": "/images/clients/ekol-lojistik.png"
+  },
+  {
+    "name": "Autoliv",
+    "logo": "/images/clients/autoliv.png"
+  },
+  {
+    "name": "IHI Dalgakıran",
+    "logo": "/images/clients/ihi-dalgakiran.png"
+  }
+]

@@ -1,0 +1,1332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* KalDet Pro - Light Theme */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    /* Card & Popover */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    /* Primary - Turuncu (Orange) */
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Antrasit (Dark Gray) */
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    /* Accent - Teal (Success) */
+    --accent: 168 76% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success */
+    --success: 168 76% 42%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Border & Input */
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 24 95% 53%;
+
+    /* Radius */
+    --radius: 0.75rem;
+
+    /* Chart Colors */
+    --chart-1: 24 95% 53%;
+    --chart-2: 168 76% 42%;
+    --chart-3: 0 0% 15%;
+    --chart-4: 38 92% 50%;
+    --chart-5: 262 83% 58%;
+  }
+
+  .dark {
+    /* KalDet Pro - Dark Theme (Antrasit) */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 168 76% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 168 76% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 24 95% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-jakarta), system-ui, sans-serif;
+    @apply font-bold tracking-tight text-foreground;
+    line-height: 1.2;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  p {
+    @apply leading-relaxed text-muted-foreground;
+  }
+
+  /* Links */
+  a {
+    @apply transition-colors duration-200;
+  }
+
+  /* Focus States */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section Spacing */
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-padding-sm {
+    @apply py-12 md:py-16;
+  }
+
+  /* Card Styles */
+  .card-base {
+    @apply bg-card rounded-xl border border-border shadow-sm;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-lg hover:border-primary/20 hover:-translate-y-1;
+  }
+
+  .card-interactive {
+    @apply card-base card-hover cursor-pointer;
+  }
+
+  /* Button Base Styles */
+  .btn-base {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply font-semibold rounded-lg;
+    @apply transition-all duration-200;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-primary text-primary-foreground;
+    @apply hover:bg-primary/90 focus-visible:ring-primary;
+    @apply active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply btn-base bg-secondary text-secondary-foreground;
+    @apply hover:bg-secondary/90 focus-visible:ring-secondary;
+    @apply active:scale-[0.98];
+  }
+
+  .btn-outline {
+    @apply btn-base border-2 border-primary text-primary bg-transparent;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply focus-visible:ring-primary;
+  }
+
+  .btn-ghost {
+    @apply btn-base text-foreground bg-transparent;
+    @apply hover:bg-muted focus-visible:ring-primary;
+  }
+
+  /* Size Variants */
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .btn-md {
+    @apply px-6 py-3 text-base;
+  }
+
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-primary to-orange-400;
+  }
+
+  .gradient-dark {
+    @apply bg-gradient-to-br from-secondary via-neutral-800 to-secondary;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(0 0% 12%) 50%, hsl(var(--secondary)) 100%);
+  }
+
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-black/50 backdrop-blur-md border border-white/10;
+  }
+
+  /* Text Gradient */
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-orange-400;
+  }
+
+  /* Badge Styles */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-primary/10 text-primary;
+  }
+
+  .badge-secondary {
+    @apply badge bg-secondary/10 text-secondary;
+  }
+
+  .badge-success {
+    @apply badge bg-accent/10 text-accent;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning/10 text-warning;
+  }
+
+  .badge-muted {
+    @apply badge bg-muted text-muted-foreground;
+  }
+
+  /* Input Styles */
+  .input-base {
+    @apply w-full px-4 py-3 rounded-lg border border-input bg-background;
+    @apply text-foreground placeholder:text-muted-foreground;
+    @apply transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  /* Divider */
+  .divider {
+    @apply w-full h-px bg-border;
+  }
+
+  /* Overlay */
+  .overlay-dark {
+    @apply absolute inset-0 bg-black/60;
+  }
+
+  .overlay-gradient {
+    @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent;
+  }
+}
+
+@layer utilities {
+  /* Text Balance */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Stagger Children */
+  .stagger-children > * {
+    @apply opacity-0;
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Smooth Transitions */
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .transition-smooth-slow {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-glow-primary {
+    @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/25;
+  }
+
+  /* Hide Scrollbar */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Line Clamp */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Logo Carousel Animation */
+.animate-scroll {
+  animation: scroll linear infinite;
+}
+
+.pause-animation {
+  animation-play-state: paused;
+}
+
+/* Custom Scrollbar (for browsers that support it) */
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground)) transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* =====================================================
+   BLOG CONTENT STYLES
+   ===================================================== */
+
+/* Lead Paragraph */
+.prose .lead,
+.prose p.lead {
+  @apply text-xl md:text-2xl text-foreground/80 font-medium leading-relaxed mb-8;
+  @apply border-l-4 border-primary pl-6;
+}
+
+/* Info Box */
+.prose .info-box {
+  @apply bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/20;
+  @apply border-l-4 border-blue-500 rounded-r-xl p-5 my-6;
+}
+
+.prose .info-box strong {
+  @apply text-blue-700 dark:text-blue-400;
+}
+
+/* Warning Box */
+.prose .warning-box {
+  @apply bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-900/20;
+  @apply border-l-4 border-amber-500 rounded-r-xl p-5 my-6;
+}
+
+.prose .warning-box strong {
+  @apply text-amber-700 dark:text-amber-400;
+}
+
+/* Highlight Box */
+.prose .highlight-box {
+  @apply bg-gradient-to-br from-primary/5 to-primary/10 rounded-2xl p-6 my-6;
+  @apply border border-primary/20;
+}
+
+.prose .highlight-box h4 {
+  @apply text-xl font-bold text-foreground mb-4;
+}
+
+.prose .highlight-box ul {
+  @apply space-y-2 list-none pl-0;
+}
+
+.prose .highlight-box li {
+  @apply flex items-start gap-2 text-foreground/80;
+}
+
+.prose .highlight-box li::before {
+  content: "✓";
+  @apply text-primary font-bold;
+}
+
+/* Grid Layouts */
+.prose .grid-2 {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .grid-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .grid-item h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .grid-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Step List */
+.prose .step-list {
+  @apply space-y-4 my-8;
+}
+
+.prose .step {
+  @apply flex gap-4 bg-card rounded-xl p-5 border border-border;
+  @apply hover:border-primary/30 transition-colors;
+}
+
+.prose .step-number {
+  @apply w-10 h-10 rounded-full bg-primary text-white font-bold flex items-center justify-center flex-shrink-0;
+}
+
+.prose .step-content h4 {
+  @apply text-lg font-bold text-foreground mb-1;
+}
+
+.prose .step-content p {
+  @apply text-muted-foreground text-sm;
+}
+
+/* Spec Table */
+.prose table.spec-table,
+.prose table.primer-table {
+  @apply w-full my-6 rounded-xl overflow-hidden border border-border;
+}
+
+.prose table.spec-table thead,
+.prose table.primer-table thead {
+  @apply bg-secondary text-white;
+}
+
+.prose table.spec-table th,
+.prose table.primer-table th {
+  @apply px-4 py-3 text-left font-semibold;
+}
+
+.prose table.spec-table tbody tr,
+.prose table.primer-table tbody tr {
+  @apply border-b border-border last:border-0;
+}
+
+.prose table.spec-table tbody tr:nth-child(even),
+.prose table.primer-table tbody tr:nth-child(even) {
+  @apply bg-muted/30;
+}
+
+.prose table.spec-table td,
+.prose table.primer-table td {
+  @apply px-4 py-3 text-foreground/80;
+}
+
+/* CTA Box */
+.prose .cta-box {
+  @apply bg-gradient-to-br from-secondary to-secondary/90 text-white rounded-2xl p-8 my-8 text-center;
+}
+
+.prose .cta-box h3 {
+  @apply text-2xl font-bold text-white mb-2;
+}
+
+.prose .cta-box p {
+  @apply text-white/80 mb-6;
+}
+
+.prose .cta-button {
+  @apply inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-xl;
+  @apply transition-all hover:-translate-y-0.5;
+}
+
+/* Card Grid */
+.prose .card-grid {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .feature-card {
+  @apply bg-card rounded-xl p-5 border border-border hover:border-primary/30 transition-colors;
+}
+
+.prose .feature-card .card-icon {
+  @apply text-3xl mb-3;
+}
+
+.prose .feature-card h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .feature-card p {
+  @apply text-sm text-muted-foreground mb-1;
+}
+
+/* Timeline */
+.prose .timeline {
+  @apply space-y-4 my-8 relative;
+}
+
+.prose .timeline::before {
+  content: "";
+  @apply absolute left-4 top-0 bottom-0 w-0.5 bg-border;
+}
+
+.prose .timeline-item {
+  @apply relative pl-12 pb-4;
+}
+
+.prose .timeline-marker {
+  @apply absolute left-0 bg-primary text-white text-xs font-bold px-2 py-1 rounded;
+}
+
+.prose .timeline-item h4 {
+  @apply text-lg font-bold text-foreground mb-1;
+}
+
+.prose .timeline-item p {
+  @apply text-muted-foreground text-sm;
+}
+
+/* Comparison */
+.prose .comparison-table {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .comparison-table .pros {
+  @apply bg-green-50 dark:bg-green-950/20 rounded-xl p-5 border border-green-200 dark:border-green-800;
+}
+
+.prose .comparison-table .cons {
+  @apply bg-amber-50 dark:bg-amber-950/20 rounded-xl p-5 border border-amber-200 dark:border-amber-800;
+}
+
+.prose .comparison-table h4 {
+  @apply text-lg font-bold mb-3;
+}
+
+.prose .comparison-table .pros h4 {
+  @apply text-green-700 dark:text-green-400;
+}
+
+.prose .comparison-table .cons h4 {
+  @apply text-amber-700 dark:text-amber-400;
+}
+
+.prose .comparison-table ul {
+  @apply space-y-2 list-none pl-0;
+}
+
+.prose .comparison-table li {
+  @apply text-foreground/80 text-sm;
+}
+
+/* Tip Box */
+.prose .tip-box {
+  @apply bg-muted/50 rounded-xl p-5 my-4 border border-border;
+}
+
+.prose .tip-box h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .tip-box p {
+  @apply text-muted-foreground text-sm;
+}
+
+/* Stat Grid */
+.prose .stat-grid {
+  @apply grid grid-cols-3 gap-4 my-8;
+}
+
+.prose .stat-item {
+  @apply text-center bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .stat-number {
+  @apply block text-3xl md:text-4xl font-bold text-primary;
+}
+
+.prose .stat-label {
+  @apply block text-sm text-muted-foreground mt-1;
+}
+
+/* Comparison Grid */
+.prose .comparison-grid {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .compare-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .compare-item h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.prose .compare-item p {
+  @apply text-sm text-muted-foreground mb-1;
+}
+
+/* Icon List */
+.prose .icon-list {
+  @apply space-y-4 my-6;
+}
+
+.prose .icon-item {
+  @apply flex gap-4 items-start bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .icon-item .icon {
+  @apply text-3xl;
+}
+
+.prose .icon-item h4 {
+  @apply text-lg font-bold text-foreground mb-1;
+}
+
+.prose .icon-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Process Flow */
+.prose .process-flow {
+  @apply flex flex-wrap items-center justify-center gap-2 my-8;
+}
+
+.prose .process-step {
+  @apply bg-card rounded-lg p-3 border border-border text-center min-w-[100px];
+}
+
+.prose .process-step span {
+  @apply block w-8 h-8 mx-auto mb-2 rounded-full bg-primary text-white font-bold text-sm flex items-center justify-center;
+}
+
+.prose .process-step p {
+  @apply text-xs text-muted-foreground;
+}
+
+.prose .process-arrow {
+  @apply text-2xl text-muted-foreground hidden md:block;
+}
+
+/* Quote Box */
+.prose .quote-box {
+  @apply bg-muted/50 rounded-2xl p-6 my-8 border-l-4 border-primary;
+}
+
+.prose .quote-box blockquote {
+  @apply text-xl md:text-2xl font-medium text-foreground italic mb-2 border-0 pl-0;
+}
+
+.prose .quote-box cite {
+  @apply text-sm text-muted-foreground not-italic;
+}
+
+/* Method Card */
+.prose .method-card {
+  @apply bg-card rounded-xl p-6 my-4 border border-border;
+}
+
+.prose .method-card h3 {
+  @apply text-xl font-bold text-foreground mb-2;
+}
+
+.prose .method-card p {
+  @apply text-muted-foreground mb-3;
+}
+
+.prose .method-card .tip {
+  @apply bg-primary/5 rounded-lg p-3 text-sm;
+}
+
+.prose .method-card .tip strong {
+  @apply text-primary;
+}
+
+/* Error List */
+.prose .error-list {
+  @apply space-y-3 my-6;
+}
+
+.prose .error-item {
+  @apply flex gap-4 bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .error-icon {
+  @apply text-2xl;
+}
+
+.prose .error-item h4 {
+  @apply text-base font-bold text-foreground mb-1;
+}
+
+.prose .error-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Checklist */
+.prose .checklist,
+.prose .final-checklist,
+.prose .floor-checklist {
+  @apply bg-muted/30 rounded-xl p-5 my-6 space-y-2;
+}
+
+.prose .checklist label,
+.prose .final-checklist label,
+.prose .floor-checklist label {
+  @apply flex items-center gap-3 text-foreground/80 text-sm cursor-default;
+}
+
+.prose .checklist input,
+.prose .final-checklist input,
+.prose .floor-checklist input {
+  @apply w-4 h-4 rounded border-border;
+}
+
+.prose .final-checklist h4,
+.prose .floor-checklist h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+/* Benefits Grid */
+.prose .benefits-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-4 my-6;
+}
+
+.prose .benefit-item {
+  @apply text-center bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .benefit-icon {
+  @apply text-3xl mb-2 block;
+}
+
+.prose .benefit-item h4 {
+  @apply text-base font-bold text-foreground mb-1;
+}
+
+.prose .benefit-item p {
+  @apply text-xs text-muted-foreground;
+}
+
+/* Pattern Gallery */
+.prose .pattern-gallery {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .pattern-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .pattern-item h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .pattern-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Step Visual */
+.prose .step-visual {
+  @apply grid md:grid-cols-3 lg:grid-cols-6 gap-4 my-8;
+}
+
+.prose .step-v {
+  @apply bg-card rounded-xl p-4 border border-border text-center;
+}
+
+.prose .step-num {
+  @apply text-3xl font-bold text-primary mb-2;
+}
+
+.prose .step-v h4 {
+  @apply text-sm font-bold text-foreground mb-1;
+}
+
+.prose .step-v p {
+  @apply text-xs text-muted-foreground;
+}
+
+/* Maintenance Tips */
+.prose .maintenance-tips {
+  @apply grid md:grid-cols-3 gap-4 my-6;
+}
+
+.prose .tip-card {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .tip-card h4 {
+  @apply text-base font-bold text-foreground mb-2;
+}
+
+.prose .tip-card p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Trend Card */
+.prose .trend-header {
+  @apply text-center my-8;
+}
+
+.prose .trend-year {
+  @apply text-6xl font-bold text-primary/20;
+}
+
+.prose .trend-card {
+  @apply flex gap-6 bg-card rounded-2xl p-6 my-4 border border-border;
+}
+
+.prose .trend-number {
+  @apply text-4xl font-bold text-primary/30;
+}
+
+.prose .trend-content h3 {
+  @apply text-xl font-bold text-foreground mb-2;
+}
+
+.prose .trend-content p {
+  @apply text-muted-foreground mb-3;
+}
+
+.prose .stat-inline {
+  @apply flex flex-wrap gap-4 mt-3;
+}
+
+.prose .stat-inline span {
+  @apply bg-muted/50 px-3 py-1 rounded-full text-sm;
+}
+
+.prose .benefit-list {
+  @apply flex flex-wrap gap-2 mt-3;
+}
+
+.prose .benefit-list span {
+  @apply bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-sm;
+}
+
+/* Insight Box */
+.prose .insight-box {
+  @apply bg-card rounded-xl p-5 my-4 border border-border;
+}
+
+.prose .insight-box h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.prose .insight-box ul {
+  @apply space-y-2 list-none pl-0;
+}
+
+.prose .insight-box li {
+  @apply text-muted-foreground text-sm flex items-start gap-2;
+}
+
+.prose .insight-box li::before {
+  content: "•";
+  @apply text-primary font-bold;
+}
+
+/* Test Grid */
+.prose .test-grid {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .test-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .test-item h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .test-item p {
+  @apply text-sm text-muted-foreground mb-1;
+}
+
+/* Method Comparison */
+.prose .method-comparison {
+  @apply grid md:grid-cols-3 gap-4 my-6;
+}
+
+.prose .method-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .method-item h4 {
+  @apply text-lg font-bold text-foreground mb-2;
+}
+
+.prose .method-item p {
+  @apply text-sm text-muted-foreground mb-3;
+}
+
+.prose .method-item ul {
+  @apply space-y-1 list-none pl-0 text-sm;
+}
+
+/* Repair List */
+.prose .repair-list {
+  @apply space-y-3 my-6;
+}
+
+.prose .repair-item {
+  @apply flex gap-4 bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .repair-icon {
+  @apply text-2xl;
+}
+
+.prose .repair-item h4 {
+  @apply text-base font-bold text-foreground mb-1;
+}
+
+.prose .repair-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Standards Box */
+.prose .standards-box {
+  @apply bg-gradient-to-br from-secondary/5 to-secondary/10 rounded-2xl p-6 my-6 border border-secondary/20;
+}
+
+.prose .standards-box h3 {
+  @apply text-xl font-bold text-foreground mb-4;
+}
+
+.prose .standard-list {
+  @apply grid md:grid-cols-4 gap-4;
+}
+
+.prose .standard-item {
+  @apply text-center;
+}
+
+.prose .standard-item strong {
+  @apply text-2xl font-bold text-primary block mb-1;
+}
+
+.prose .standard-item p {
+  @apply text-xs text-muted-foreground;
+}
+
+/* Material Section */
+.prose .material-section {
+  @apply bg-card rounded-xl p-6 my-4 border border-border;
+}
+
+.prose .material-section h3 {
+  @apply text-xl font-bold text-foreground mb-4;
+}
+
+.prose .control-points {
+  @apply grid md:grid-cols-2 gap-4;
+}
+
+.prose .control-item h4 {
+  @apply text-base font-semibold text-foreground mb-2;
+}
+
+.prose .control-item ul {
+  @apply space-y-1 list-none pl-0;
+}
+
+.prose .control-item li {
+  @apply text-sm text-muted-foreground flex items-start gap-2;
+}
+
+.prose .control-item li::before {
+  content: "•";
+  @apply text-primary;
+}
+
+/* Process Timeline */
+.prose .process-timeline {
+  @apply grid md:grid-cols-5 gap-4 my-8;
+}
+
+.prose .process-timeline .process-step {
+  @apply bg-card rounded-xl p-4 border border-border text-center;
+}
+
+.prose .process-timeline .step-icon {
+  @apply text-3xl mb-2 block;
+}
+
+.prose .process-timeline h4 {
+  @apply text-sm font-bold text-foreground mb-1;
+}
+
+.prose .process-timeline p {
+  @apply text-xs text-muted-foreground;
+}
+
+/* Doc List */
+.prose .doc-list {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .doc-item {
+  @apply flex gap-3 items-start bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .doc-icon {
+  @apply text-2xl;
+}
+
+.prose .doc-item strong {
+  @apply text-foreground font-semibold block mb-1;
+}
+
+.prose .doc-item p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Stat Highlight */
+.prose .stat-highlight {
+  @apply flex flex-wrap justify-center gap-6 my-8;
+}
+
+.prose .stat-box {
+  @apply text-center bg-card rounded-xl p-6 border border-border min-w-[150px];
+}
+
+.prose .stat-value {
+  @apply block text-4xl font-bold text-primary mb-1;
+}
+
+.prose .stat-desc {
+  @apply block text-sm text-muted-foreground;
+}
+
+/* Safety Grid */
+.prose .safety-grid {
+  @apply grid md:grid-cols-2 gap-4 my-6;
+}
+
+.prose .safety-card {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .safety-icon {
+  @apply text-3xl mb-3 block;
+}
+
+.prose .safety-card h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.prose .safety-card ul {
+  @apply space-y-1 list-none pl-0;
+}
+
+.prose .safety-card li {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Floor Safety */
+.prose .floor-safety {
+  @apply my-6;
+}
+
+.prose .floor-types {
+  @apply grid md:grid-cols-3 gap-4 my-4;
+}
+
+.prose .floor-type {
+  @apply bg-card rounded-xl p-4 border border-border;
+}
+
+.prose .floor-type h4 {
+  @apply text-base font-bold text-foreground mb-2;
+}
+
+.prose .floor-type p {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Emergency Section */
+.prose .emergency-section {
+  @apply grid md:grid-cols-3 gap-4 my-6;
+}
+
+.prose .emergency-item {
+  @apply bg-card rounded-xl p-5 border border-border;
+}
+
+.prose .emergency-item h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.prose .emergency-item ul {
+  @apply space-y-1 list-none pl-0;
+}
+
+.prose .emergency-item li {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Legal Box */
+.prose .legal-box {
+  @apply bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900/30 dark:to-slate-800/20;
+  @apply rounded-xl p-5 my-6 border border-slate-200 dark:border-slate-700;
+}
+
+.prose .legal-box h4 {
+  @apply text-lg font-bold text-foreground mb-3;
+}
+
+.prose .legal-box ul {
+  @apply space-y-1 list-none pl-0;
+}
+
+.prose .legal-box li {
+  @apply text-sm text-muted-foreground flex items-start gap-2;
+}
+
+.prose .legal-box li::before {
+  content: "•";
+  @apply text-slate-500;
+}
+
+/* Culture Tips */
+.prose .culture-tips {
+  @apply grid md:grid-cols-2 lg:grid-cols-4 gap-4 my-6;
+}
+
+.prose .culture-item {
+  @apply bg-card rounded-xl p-4 border border-border text-center;
+}
+
+.prose .culture-icon {
+  @apply text-3xl mb-2 block;
+}
+
+.prose .culture-item h4 {
+  @apply text-base font-bold text-foreground mb-2;
+}
+
+.prose .culture-item p {
+  @apply text-xs text-muted-foreground;
+}
