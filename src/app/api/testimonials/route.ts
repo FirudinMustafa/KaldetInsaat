@@ -2,15 +2,28 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { prisma } from "@/lib/prisma"
 import { authOptions } from "@/lib/auth"
+import { testimonialSchema } from "@/lib/validation"
 
 // GET - List testimonials
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const approved = searchParams.get("approved")
+    const session = await getServerSession(authOptions)
+    const isStaff =
+      session?.user?.role === "ADMIN" || session?.user?.role === "EDITOR"
 
-    const where: any = {}
-    if (approved === "true") where.isApproved = true
+    const { searchParams } = new URL(request.url)
+    const approvedParam = searchParams.get("approved")
+
+    const where: Record<string, unknown> = {}
+
+    // Public: only approved testimonials. Staff may list all or filter.
+    if (!isStaff) {
+      where.isApproved = true
+    } else if (approvedParam === "true") {
+      where.isApproved = true
+    } else if (approvedParam === "false") {
+      where.isApproved = false
+    }
 
     const testimonials = await prisma.testimonial.findMany({
       where,
@@ -48,18 +61,19 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    const validated = testimonialSchema.parse(body)
 
     const testimonial = await prisma.testimonial.create({
       data: {
-        clientName: body.clientName,
-        companyName: body.companyName,
-        position: body.position,
-        content: body.content,
-        rating: body.rating || 5,
-        image: body.image,
-        projectId: body.projectId,
-        isApproved: body.isApproved || false,
-        featured: body.featured || false,
+        clientName: validated.clientName,
+        companyName: validated.companyName,
+        position: validated.position,
+        content: validated.content,
+        rating: validated.rating,
+        image: validated.image,
+        projectId: validated.projectId,
+        isApproved: validated.isApproved,
+        featured: validated.featured,
       },
       include: {
         project: {
@@ -76,8 +90,14 @@ export async function POST(request: NextRequest) {
       },
       { status: 201 }
     )
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Create testimonial error:", error)
+    if (error instanceof Error && error.name === "ZodError") {
+      return NextResponse.json(
+        { success: false, message: "Geçersiz veri" },
+        { status: 400 }
+      )
+    }
     return NextResponse.json(
       { success: false, message: "Referans oluşturulamadı" },
       { status: 500 }

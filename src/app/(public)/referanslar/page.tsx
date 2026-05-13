@@ -113,10 +113,13 @@ export default async function ReferanslarPage() {
               </div>
               <div>
                 <div className="text-4xl font-bold text-amber-600">
-                  {Math.round(
-                    testimonials.reduce((sum, t) => sum + t.rating, 0) /
-                      testimonials.length || 0
-                  )}/5
+                  {testimonials.length === 0
+                    ? 0
+                    : Math.round(
+                        testimonials.reduce((sum, t) => sum + t.rating, 0) /
+                          testimonials.length
+                      )}
+                  /5
                 </div>
                 <div className="text-gray-600 mt-2">Ortalama Puan</div>
               </div>

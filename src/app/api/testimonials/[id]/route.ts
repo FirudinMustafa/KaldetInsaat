@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { prisma } from "@/lib/prisma"
 import { authOptions } from "@/lib/auth"
+import { z } from "zod"
+import { testimonialSchema } from "@/lib/validation"
+
+const testimonialUpdateSchema = testimonialSchema.partial().extend({
+  projectId: z.string().nullable().optional(),
+})
 
 // GET - Get single testimonial
 export async function GET(
@@ -10,6 +16,10 @@ export async function GET(
 ) {
   try {
     const { id } = await params
+    const session = await getServerSession(authOptions)
+    const isStaff =
+      session?.user?.role === "ADMIN" || session?.user?.role === "EDITOR"
+
     const testimonial = await prisma.testimonial.findUnique({
       where: { id },
       include: {
@@ -20,6 +30,13 @@ export async function GET(
     })
 
     if (!testimonial) {
+      return NextResponse.json(
+        { success: false, message: "Referans bulunamadı" },
+        { status: 404 }
+      )
+    }
+
+    if (!testimonial.isApproved && !isStaff) {
       return NextResponse.json(
         { success: false, message: "Referans bulunamadı" },
         { status: 404 }
@@ -56,10 +73,11 @@ export async function PATCH(
     }
 
     const body = await request.json()
+    const validated = testimonialUpdateSchema.parse(body)
 
     const testimonial = await prisma.testimonial.update({
       where: { id },
-      data: body,
+      data: validated,
       include: {
         project: {
           select: { id: true, title: true, slug: true },
@@ -72,8 +90,14 @@ export async function PATCH(
       message: "Referans güncellendi",
       data: testimonial,
     })
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Update testimonial error:", error)
+    if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
+      return NextResponse.json(
+        { success: false, message: "Geçersiz veri" },
+        { status: 400 }
+      )
+    }
     return NextResponse.json(
       { success: false, message: "Referans güncellenemedi" },
       { status: 500 }

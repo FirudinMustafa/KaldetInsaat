@@ -8,6 +8,10 @@ import slugify from "slugify"
 // GET - List projects (public or admin)
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    const isStaff =
+      session?.user?.role === "ADMIN" || session?.user?.role === "EDITOR"
+
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get("page") || "1")
     const limit = parseInt(searchParams.get("limit") || "12")
@@ -15,15 +19,23 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get("status")
     const serviceId = searchParams.get("serviceId")
     const featured = searchParams.get("featured")
-    const isPublished = searchParams.get("published")
+    const publishedParam = searchParams.get("published")
 
     // Build where clause
-    const where: any = {}
+    const where: Record<string, unknown> = {}
 
     if (status) where.status = status
     if (serviceId) where.serviceId = serviceId
     if (featured === "true") where.featured = true
-    if (isPublished === "true") where.isPublished = true
+
+    // Public callers only ever see published projects (ignore spoofed query params).
+    if (!isStaff) {
+      where.isPublished = true
+    } else if (publishedParam === "true") {
+      where.isPublished = true
+    } else if (publishedParam === "false") {
+      where.isPublished = false
+    }
 
     const [projects, total] = await Promise.all([
       prisma.project.findMany({

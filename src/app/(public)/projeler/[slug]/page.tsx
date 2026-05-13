@@ -23,8 +23,8 @@ import {
 export const dynamic = "force-dynamic"
 
 async function getProject(slug: string) {
-  return await prisma.project.findUnique({
-    where: { slug },
+  return await prisma.project.findFirst({
+    where: { slug, isPublished: true },
     include: {
       service: {
         select: { title: true, slug: true }
