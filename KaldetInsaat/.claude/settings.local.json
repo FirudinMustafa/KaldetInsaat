@@ -33,17 +33,7 @@
       "Bash(git init:*)",
       "Bash(git remote add:*)",
       "Bash(git branch:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(git remote set-url:*)",
-      "Bash(npx vercel:*)",
-      "Bash(npm cache clean:*)",
-      "Bash(npm install:*)",
-      "Bash(node -e:*)",
-      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_UjY9vDGOq5rW@ep-withered-poetry-agz0fgik-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" node:*)",
-      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_UjY9vDGOq5rW@ep-withered-poetry-agz0fgik-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" npx prisma generate:*)",
-      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_UjY9vDGOq5rW@ep-withered-poetry-agz0fgik-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require\" node -e \":*)"
+      "Bash(git add:*)"
     ]
   }
 }

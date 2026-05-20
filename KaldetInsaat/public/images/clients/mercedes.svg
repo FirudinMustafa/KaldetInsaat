@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="80" viewBox="0 0 140 80">
+    <rect width="140" height="80" fill="white"/>
+    <rect x="5" y="5" width="130" height="70" rx="8" fill="#333333"/>
+    <text x="70" y="45" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">MERCEDES</text>
+  </svg>
