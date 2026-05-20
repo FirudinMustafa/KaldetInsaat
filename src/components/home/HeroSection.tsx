@@ -31,7 +31,7 @@ export function HeroSection() {
             {/* What We Do - Clear Statement */}
             <div className="inline-flex items-center gap-2 bg-primary/20 backdrop-blur-sm border border-primary/30 px-4 py-2 rounded-full mb-6 animate-fade-in">
               <Factory className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-white">Fabrika & Depo Zemin Uygulayıcısı</span>
+              <span className="text-sm font-medium text-white">Türkiye Geneli Endüstriyel Zemin Uygulayıcısı</span>
             </div>
 
             {/* Heading - Clear and Simple */}
@@ -74,7 +74,7 @@ export function HeroSection() {
               <Button size="xl" variant="default" asChild>
                 <Link href="/iletisim" className="gap-2">
                   <Phone className="w-5 h-5" />
-                  Teklif Al
+                  Ücretsiz Teklif Al
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
@@ -98,7 +98,7 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-primary mb-1">25+</div>
-                <div className="text-sm text-white/60">Yıl Tecrübe</div>
+                <div className="text-sm text-white/60">Yıl Deneyim</div>
               </div>
             </div>
           </div>
