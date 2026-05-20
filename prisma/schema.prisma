@@ -8,19 +8,65 @@ datasource db {
 }
 
 // ============================================
+// ENUMS
+// ============================================
+
+enum UserRole {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+}
+
+enum BlogPostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+enum QuoteStatus {
+  PENDING
+  REVIEWING
+  QUOTED
+  ACCEPTED
+  REJECTED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  OTHER
+}
+
+// ============================================
 // USER & AUTH MODELS
 // ============================================
 
 model User {
   id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
+  name          String    @db.VarChar(255)
+  email         String    @unique @db.VarChar(255)
   password      String
-  role          String    @default("EDITOR") // ADMIN, EDITOR, VIEWER
+  role          UserRole  @default(EDITOR)
   image         String?
   emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
 
   accounts      Account[]
   sessions      Session[]
@@ -30,15 +76,17 @@ model User {
   createdBlogPosts   BlogPost[]   @relation("CreatedBy")
   createdServices    Service[]    @relation("CreatedBy")
 
+  @@index([email])
+  @@index([deletedAt])
   @@map("users")
 }
 
 model Account {
   id                String  @id @default(cuid())
   userId            String
-  type              String
-  provider          String
-  providerAccountId String
+  type              String  @db.VarChar(50)
+  provider          String  @db.VarChar(50)
+  providerAccountId String  @db.VarChar(255)
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -46,10 +94,13 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
+  deletedAt         DateTime?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@index([deletedAt])
   @@map("accounts")
 }
 
@@ -58,8 +109,11 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  deletedAt     DateTime?
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
+  @@index([deletedAt])
   @@map("sessions")
 }
 
@@ -78,14 +132,14 @@ model VerificationToken {
 
 model Project {
   id            String        @id @default(cuid())
-  slug          String        @unique
-  title         String
-  description   String
-  location      String
-  client        String?
+  slug          String        @unique @db.VarChar(255)
+  title         String        @db.VarChar(255)
+  description   String        @db.Text
+  location      String        @db.VarChar(255)
+  client        String?       @db.VarChar(255)
   startDate     DateTime?
   endDate       DateTime?
-  status        String        @default("IN_PROGRESS") // PLANNING, IN_PROGRESS, COMPLETED, ON_HOLD
+  status        ProjectStatus @default(IN_PROGRESS)
   featured      Boolean       @default(false)
 
   // Metrics
@@ -94,8 +148,8 @@ model Project {
   duration      Int?          // days
 
   // SEO
-  metaTitle     String?
-  metaDescription String?
+  metaTitle     String?       @db.VarChar(255)
+  metaDescription String?     @db.VarChar(500)
 
   // Media
   coverImage    String?
@@ -114,45 +168,54 @@ model Project {
   updatedAt     DateTime      @updatedAt
   publishedAt   DateTime?
   isPublished   Boolean       @default(false)
+  deletedAt     DateTime?
 
   @@index([slug])
   @@index([status])
   @@index([serviceId])
   @@index([featured])
+  @@index([deletedAt])
+  @@index([createdAt])
   @@map("projects")
 }
 
 model ProjectImage {
   id          String   @id @default(cuid())
   url         String
-  alt         String?
-  caption     String?
+  alt         String?  @db.VarChar(255)
+  caption     String?  @db.Text
   order       Int      @default(0)
   isBefore    Boolean  @default(false)
   isAfter     Boolean  @default(false)
+  deletedAt   DateTime?
 
   projectId   String
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@index([projectId])
+  @@index([deletedAt])
   @@map("project_images")
 }
 
 model ProjectVideo {
   id          String   @id @default(cuid())
   url         String
-  title       String?
+  title       String?  @db.VarChar(255)
   thumbnail   String?
   order       Int      @default(0)
+  deletedAt   DateTime?
 
   projectId   String
   project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@index([projectId])
+  @@index([deletedAt])
   @@map("project_videos")
 }
 
@@ -162,10 +225,10 @@ model ProjectVideo {
 
 model Service {
   id              String    @id @default(cuid())
-  slug            String    @unique
-  title           String
-  shortDescription String   
-  description     String    
+  slug            String    @unique @db.VarChar(255)
+  title           String    @db.VarChar(255)
+  shortDescription String   @db.VarChar(500)
+  description     String    @db.Text
   icon            String?
   coverImage      String?
   order           Int       @default(0)
@@ -178,8 +241,8 @@ model Service {
   materials       ServiceMaterial[]
 
   // SEO
-  metaTitle       String?
-  metaDescription String?
+  metaTitle       String?   @db.VarChar(255)
+  metaDescription String?   @db.VarChar(500)
 
   // Relations
   projects        Project[]
@@ -191,36 +254,49 @@ model Service {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   isPublished     Boolean   @default(false)
+  deletedAt       DateTime?
 
   @@index([slug])
   @@index([featured])
+  @@index([deletedAt])
+  @@index([createdAt])
   @@map("services")
 }
 
 model ServiceProcess {
   id          String   @id @default(cuid())
-  title       String
-  description String   
+  title       String   @db.VarChar(255)
+  description String   @db.Text
   order       Int
   icon        String?
+  deletedAt   DateTime?
 
   serviceId   String
   service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   @@index([serviceId])
+  @@index([deletedAt])
   @@map("service_processes")
 }
 
 model ServiceMaterial {
   id          String   @id @default(cuid())
-  name        String
-  description String?  
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
   order       Int
+  deletedAt   DateTime?
 
   serviceId   String
   service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   @@index([serviceId])
+  @@index([deletedAt])
   @@map("service_materials")
 }
 
@@ -230,10 +306,11 @@ model ServiceMaterial {
 
 model BlogCategory {
   id          String     @id @default(cuid())
-  slug        String     @unique
-  name        String
-  description String?    
+  slug        String     @unique @db.VarChar(255)
+  name        String     @db.VarChar(255)
+  description String?    @db.Text
   order       Int        @default(0)
+  deletedAt   DateTime?
 
   posts       BlogPost[]
 
@@ -241,22 +318,23 @@ model BlogCategory {
   updatedAt   DateTime   @updatedAt
 
   @@index([slug])
+  @@index([deletedAt])
   @@map("blog_categories")
 }
 
 model BlogPost {
   id              String         @id @default(cuid())
-  slug            String         @unique
-  title           String
-  excerpt         String         
-  content         String         
+  slug            String         @unique @db.VarChar(255)
+  title           String         @db.VarChar(255)
+  excerpt         String         @db.VarChar(500)
+  content         String         @db.Text
   coverImage      String?
-  status          String         @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  status          BlogPostStatus @default(DRAFT)
   featured        Boolean        @default(false)
 
   // SEO
-  metaTitle       String?
-  metaDescription String?
+  metaTitle       String?        @db.VarChar(255)
+  metaDescription String?        @db.VarChar(500)
   keywords        String?        // JSON string array
 
   // Stats
@@ -273,22 +351,30 @@ model BlogPost {
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   publishedAt     DateTime?
+  deletedAt       DateTime?
 
   @@index([slug])
   @@index([status])
   @@index([categoryId])
   @@index([featured])
+  @@index([deletedAt])
+  @@index([createdAt])
   @@map("blog_posts")
 }
 
 model BlogTag {
-  id    String @id @default(cuid())
-  name  String @unique
-  slug  String @unique
+  id    String    @id @default(cuid())
+  name  String    @unique @db.VarChar(255)
+  slug  String    @unique @db.VarChar(255)
+  deletedAt DateTime?
 
   posts BlogPost[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@index([slug])
+  @@index([deletedAt])
   @@map("blog_tags")
 }
 
@@ -298,19 +384,22 @@ model BlogTag {
 
 model TeamMember {
   id          String   @id @default(cuid())
-  name        String
-  position    String
-  bio         String?  
+  name        String   @db.VarChar(255)
+  position    String   @db.VarChar(255)
+  bio         String?  @db.Text
   image       String?
-  email       String?
-  phone       String?
+  email       String?  @db.VarChar(255)
+  phone       String?  @db.VarChar(20)
   linkedin    String?
   order       Int      @default(0)
 
   isPublished Boolean  @default(true)
+  deletedAt   DateTime?
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  @@index([deletedAt])
   @@map("team_members")
 }
 
@@ -320,13 +409,14 @@ model TeamMember {
 
 model Testimonial {
   id            String   @id @default(cuid())
-  clientName    String
-  companyName   String?
-  position      String?
-  content       String   
+  clientName    String   @db.VarChar(255)
+  companyName   String?  @db.VarChar(255)
+  position      String?  @db.VarChar(255)
+  content       String   @db.Text
   rating        Int      @default(5) // 1-5
   image         String?
   featured      Boolean  @default(false)
+  deletedAt     DateTime?
 
   projectId     String?  @unique
   project       Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
@@ -337,6 +427,7 @@ model Testimonial {
 
   @@index([featured])
   @@index([isApproved])
+  @@index([deletedAt])
   @@map("testimonials")
 }
 
@@ -346,18 +437,20 @@ model Testimonial {
 
 model Certificate {
   id          String   @id @default(cuid())
-  title       String
-  description String?  
-  issuer      String?
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  issuer      String?  @db.VarChar(255)
   issueDate   DateTime?
   image       String?
   pdfUrl      String?
   order       Int      @default(0)
+  deletedAt   DateTime?
 
   isPublished Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  @@index([deletedAt])
   @@map("certificates")
 }
 
@@ -367,10 +460,11 @@ model Certificate {
 
 model FAQCategory {
   id          String        @id @default(cuid())
-  name        String
-  slug        String        @unique
-  description String?
+  name        String        @db.VarChar(255)
+  slug        String        @unique @db.VarChar(255)
+  description String?       @db.Text
   order       Int           @default(0)
+  deletedAt   DateTime?
 
   questions   FAQQuestion[]
 
@@ -378,14 +472,16 @@ model FAQCategory {
   updatedAt   DateTime      @updatedAt
 
   @@index([slug])
+  @@index([deletedAt])
   @@map("faq_categories")
 }
 
 model FAQQuestion {
   id          String       @id @default(cuid())
-  question    String
-  answer      String       
+  question    String       @db.VarChar(500)
+  answer      String       @db.Text
   order       Int          @default(0)
+  deletedAt   DateTime?
 
   categoryId  String?
   category    FAQCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
@@ -395,6 +491,7 @@ model FAQQuestion {
   updatedAt   DateTime     @updatedAt
 
   @@index([categoryId])
+  @@index([deletedAt])
   @@map("faq_questions")
 }
 
@@ -404,19 +501,20 @@ model FAQQuestion {
 
 model ContactSubmission {
   id          String        @id @default(cuid())
-  name        String
-  email       String
-  phone       String?
-  companyName String?
-  subject     String?
-  message     String
-  projectType String?
+  name        String        @db.VarChar(255)
+  email       String        @db.VarChar(255)
+  phone       String?       @db.VarChar(20)
+  companyName String?       @db.VarChar(255)
+  subject     String?       @db.VarChar(500)
+  message     String        @db.Text
+  projectType String?       @db.VarChar(255)
 
-  status      String        @default("NEW") // NEW, READ, REPLIED, ARCHIVED
-  notes       String?
+  status      ContactStatus @default(NEW)
+  notes       String?       @db.Text
+  deletedAt   DateTime?
 
   // Metadata
-  ipAddress   String?
+  ipAddress   String?       @db.VarChar(50)
   userAgent   String?
 
   createdAt   DateTime      @default(now())
@@ -424,47 +522,50 @@ model ContactSubmission {
 
   @@index([status])
   @@index([createdAt])
+  @@index([deletedAt])
   @@map("contact_submissions")
 }
 
 model QuoteRequest {
-  id              String             @id @default(cuid())
+  id              String       @id @default(cuid())
 
   // Client info
-  name            String
-  email           String
-  phone           String?
-  companyName     String?
+  name            String       @db.VarChar(255)
+  email           String       @db.VarChar(255)
+  phone           String?      @db.VarChar(20)
+  companyName     String?      @db.VarChar(255)
 
   // Project details
   serviceId       String?
-  service         Service?           @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  projectType     String?
-  area            Float?             // m2
-  location        String?
-  description     String?            
+  service         Service?     @relation(fields: [serviceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  projectType     String?      @db.VarChar(255)
+  area            Float?       // m2
+  location        String?      @db.VarChar(255)
+  description     String?      @db.Text
   budget          String?
-  timeline        String?
+  timeline        String?      @db.VarChar(100)
 
   // Calculated estimate
   estimatedPrice  Float?
   finalQuote      Float?
-  quoteNotes      String?            
+  quoteNotes      String?      @db.Text
   quotePdfUrl     String?
 
-  status          String             @default("PENDING") // PENDING, REVIEWING, QUOTED, ACCEPTED, REJECTED
+  status          QuoteStatus  @default(PENDING)
+  deletedAt       DateTime?
 
   // Metadata
-  ipAddress       String?
+  ipAddress       String?      @db.VarChar(50)
   userAgent       String?
 
-  createdAt       DateTime           @default(now())
-  updatedAt       DateTime           @updatedAt
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
   quotedAt        DateTime?
 
   @@index([status])
   @@index([serviceId])
   @@index([createdAt])
+  @@index([deletedAt])
   @@map("quote_requests")
 }
 
@@ -474,26 +575,29 @@ model QuoteRequest {
 
 model Media {
   id          String    @id @default(cuid())
-  filename    String
+  filename    String    @db.VarChar(500)
   url         String
-  type        String    // IMAGE, VIDEO, DOCUMENT, OTHER
-  mimeType    String
+  type        MediaType // IMAGE, VIDEO, DOCUMENT, OTHER
+  mimeType    String    @db.VarChar(100)
   size        Int       // bytes
-  alt         String?
-  caption     String?
+  alt         String?   @db.VarChar(255)
+  caption     String?   @db.Text
 
   // Image specific
   width       Int?
   height      Int?
 
   // Organization
-  folder      String?
+  folder      String?   @db.VarChar(255)
   tags        String?   // JSON string array
+  deletedAt   DateTime?
 
   uploadedAt  DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([type])
   @@index([folder])
+  @@index([deletedAt])
   @@map("media")
 }
 
@@ -502,28 +606,32 @@ model Media {
 // ============================================
 
 model SiteSettings {
-  id    String @id @default(cuid())
-  key   String @unique
-  value String 
-  type  String @default("string") // string, number, boolean, json
+  id        String   @id @default(cuid())
+  key       String   @unique @db.VarChar(255)
+  value     String   @db.Text
+  type      String   @default("string") @db.VarChar(50) // string, number, boolean, json
+  deletedAt DateTime?
 
   updatedAt DateTime @updatedAt
 
   @@index([key])
+  @@index([deletedAt])
   @@map("site_settings")
 }
 
 model SEOSettings {
-  id          String @id @default(cuid())
-  page        String @unique // homepage, about, services, etc.
-  title       String
-  description String 
-  keywords    String? // JSON string array
+  id          String   @id @default(cuid())
+  page        String   @unique @db.VarChar(255) // homepage, about, services, etc.
+  title       String   @db.VarChar(255)
+  description String   @db.VarChar(500)
+  keywords    String?  // JSON string array
   ogImage     String?
+  deletedAt   DateTime?
 
   updatedAt   DateTime @updatedAt
 
   @@index([page])
+  @@index([deletedAt])
   @@map("seo_settings")
 }
 
@@ -533,27 +641,32 @@ model SEOSettings {
 
 model PageView {
   id        String   @id @default(cuid())
-  page      String
-  ipAddress String?
+  page      String   @db.VarChar(500)
+  ipAddress String?  @db.VarChar(50)
   userAgent String?
-  referrer  String?
+  referrer  String?  @db.VarChar(500)
+  deletedAt DateTime?
 
   createdAt DateTime @default(now())
 
   @@index([page])
   @@index([createdAt])
+  @@index([deletedAt])
   @@map("page_views")
 }
 
 model ConversionEvent {
   id        String   @id @default(cuid())
-  type      String   // contact_form, quote_request, phone_click, etc.
-  page      String?
-  data      String?  // JSON string
+  type      String   @db.VarChar(100) // contact_form, quote_request, phone_click, etc.
+  page      String?  @db.VarChar(500)
+  data      String?  @db.Text // JSON string
+  deletedAt DateTime?
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([type])
   @@index([createdAt])
+  @@index([deletedAt])
   @@map("conversion_events")
 }
