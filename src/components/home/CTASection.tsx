@@ -14,11 +14,11 @@ export function CTASection() {
 
       <div className="container-wide relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             Projenize Bugün Başlayalım
           </h2>
           <p className="text-xl text-white/90 mb-10">
-            Uzman ekibimizle projenizi en kısa sürede ve en yüksek kalitede tamamlayalım
+            Uzman ekibimizle projenizi zamanında, bütçenize uygun ve en yüksek kalitede tamamlayalım
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">

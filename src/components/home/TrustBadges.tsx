@@ -2,12 +2,12 @@ import { Award, Shield, Clock, CheckCircle } from "lucide-react"
 
 const stats = [
   {
-    value: "150+",
+    value: "200+",
     label: "Tamamlanan Proje",
     icon: CheckCircle,
   },
   {
-    value: "500K+",
+    value: "750K+",
     label: "m² Uygulama Alanı",
     icon: Award,
   },
@@ -35,6 +35,10 @@ const badges = [
   {
     title: "Zamanında",
     subtitle: "Teslim Garantisi",
+  },
+  {
+    title: "TSE",
+    subtitle: "Belgelendirilmiş Standart",
   },
 ]
 
