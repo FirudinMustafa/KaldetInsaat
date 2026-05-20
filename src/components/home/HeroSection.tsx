@@ -61,7 +61,11 @@ export function HeroSection() {
               </div>
               <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg">
                 <CheckCircle className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-white/90">25+ Yıl Tecrübe</span>
+                <span className="text-sm text-white/90">Ücretsiz Keşif</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg">
+                <CheckCircle className="w-4 h-4 text-green-400" />
+                <span className="text-sm text-white/90">Zamanında Teslim</span>
               </div>
             </div>
 
@@ -85,11 +89,11 @@ export function HeroSection() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 pt-8 border-t border-white/10 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">150+</div>
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">200+</div>
                 <div className="text-sm text-white/60">Tamamlanan Proje</div>
               </div>
               <div>
-                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">500K+</div>
+                <div className="text-3xl md:text-4xl font-bold text-primary mb-1">750K+</div>
                 <div className="text-sm text-white/60">m² Uygulama</div>
               </div>
               <div>

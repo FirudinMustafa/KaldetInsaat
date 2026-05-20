@@ -338,7 +338,7 @@ export function Header() {
             <Button variant="default" size="sm" asChild>
               <Link href="/iletisim" className="gap-2">
                 <Phone className="w-4 h-4" />
-                Teklif Al
+                Ücretsiz Teklif Al
               </Link>
             </Button>
           </div>

@@ -49,9 +49,9 @@ export async function BlogSection() {
               <span className="text-sm font-semibold uppercase tracking-wider">Blog & Haberler</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Sektörden Son{" "}
+              Teknik İçerik &{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-amber-500">
-                Gelişmeler
+                Sektör Haberleri
               </span>
             </h2>
           </div>
