@@ -37,12 +37,17 @@ export function ToolsQuickPanel() {
       <div className="container-wide">
         {/* Section Header */}
         <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 text-primary mb-3">
+            <span className="w-8 h-px bg-primary" />
+            <span className="text-sm font-semibold uppercase tracking-wider">Ücretsiz Araçlar</span>
+            <span className="w-8 h-px bg-primary" />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Hesaplama Araçları
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Projeniz için gereken malzeme miktarını hızlıca hesaplayın,{' '}
-            <strong className="text-foreground">PDF rapor</strong> alın.
+            Projeniz için gereken malzeme miktarını saniyeler içinde hesaplayın,{' '}
+            <strong className="text-foreground">PDF rapor</strong> olarak indirin.
           </p>
         </div>
 

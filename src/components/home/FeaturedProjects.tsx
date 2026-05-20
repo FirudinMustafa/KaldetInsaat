@@ -33,11 +33,16 @@ export async function FeaturedProjects() {
       <div className="container-wide">
         {/* Section Header */}
         <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 text-primary mb-3">
+            <span className="w-8 h-px bg-primary" />
+            <span className="text-sm font-semibold uppercase tracking-wider">Referans Projeler</span>
+            <span className="w-8 h-px bg-primary" />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Öne Çıkan Projeler
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Başarıyla tamamladığımız ve gurur duyduğumuz projelerimizden bazıları
+            Türkiye&apos;nin önde gelen sanayi tesislerinde tamamladığımız projelerden seçkiler
           </p>
         </div>
 
@@ -51,7 +56,7 @@ export async function FeaturedProjects() {
               style={{ animationDelay: `${index * 0.05}s` }}
             >
               {/* Project Image */}
-              <div className="relative h-56 bg-muted overflow-hidden">
+              <div className="relative h-64 bg-muted overflow-hidden">
                 {project.coverImage ? (
                   <Image
                     src={project.coverImage}

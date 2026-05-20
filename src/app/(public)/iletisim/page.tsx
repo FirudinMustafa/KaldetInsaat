@@ -307,8 +307,8 @@ export default function IletisimPage() {
                       Talebiniz Alındı!
                     </h3>
                     <p className="text-muted-foreground mb-6">
-                      En kısa sürede sizinle iletişime geçeceğiz.<br />
-                      Genellikle 24 saat içinde dönüş yapıyoruz.
+                      Talebiniz ekibimize iletildi.<br />
+                      Mesai saatleri içinde genellikle 2-4 saat içinde dönüş yapıyoruz.
                     </p>
                     <Button variant="outline" onClick={resetForm}>
                       Yeni Talep Oluştur
@@ -502,7 +502,7 @@ export default function IletisimPage() {
                     </Button>
 
                     <p className="text-xs text-center text-muted-foreground">
-                      Formunuz bize ulaştığında en geç 24 saat içinde sizinle iletişime geçeceğiz.
+                      Formunuz bize ulaştığında mesai saatleri içinde en geç 4 saat içinde sizinle iletişime geçeceğiz.
                     </p>
                   </form>
                 )}

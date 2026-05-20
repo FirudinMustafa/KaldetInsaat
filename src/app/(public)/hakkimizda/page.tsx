@@ -44,7 +44,12 @@ const timelineItems = [
   {
     year: '2024',
     title: 'Dijital Dönüşüm',
-    description: 'Online teklif ve proje takip sistemleri devreye alındı.'
+    description: 'Online teklif, proje takip ve hesaplama araçları devreye alındı.'
+  },
+  {
+    year: '2026',
+    title: 'Büyüyen Ekip',
+    description: '60+ uzman personel ile Türkiye genelinde projelere hizmet veriliyor.'
   }
 ]
 
@@ -79,9 +84,9 @@ const valuesData = [
 // Stats data
 const statsData = [
   { value: '25+', label: 'Yıllık Tecrübe', icon: Calendar },
-  { value: '150+', label: 'Tamamlanan Proje', icon: Briefcase },
+  { value: '200+', label: 'Tamamlanan Proje', icon: Briefcase },
   { value: '%98', label: 'Müşteri Memnuniyeti', icon: Users },
-  { value: '50+', label: 'Uzman Personel', icon: Building2 }
+  { value: '60+', label: 'Uzman Personel', icon: Building2 }
 ]
 
 export default function HakkimizdaPage() {
@@ -331,11 +336,12 @@ export default function HakkimizdaPage() {
               <div className="space-y-4">
                 {[
                   'Sektörde 25+ yıllık deneyim',
-                  '150+ başarılı tamamlanmış proje',
-                  'Yerinde keşif ve özel çözümler',
+                  '200+ başarılı tamamlanmış proje',
+                  'Ücretsiz yerinde keşif ve özel çözümler',
                   'Garanti kapsamında kaliteli işçilik',
                   '7/24 teknik destek hizmeti',
-                  'Şeffaf fiyatlandırma politikası'
+                  'Şeffaf fiyatlandırma politikası',
+                  'ISO 9001 kalite belgeli süreçler'
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
