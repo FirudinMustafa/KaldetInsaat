@@ -85,8 +85,8 @@ const valuesData = [
 const statsData = [
   { value: '25+', label: 'Yıllık Tecrübe', icon: Calendar },
   { value: '200+', label: 'Tamamlanan Proje', icon: Briefcase },
-  { value: '%98', label: 'Müşteri Memnuniyeti', icon: Users },
-  { value: '60+', label: 'Uzman Personel', icon: Building2 }
+  { value: '750K+', label: 'm² Uygulama Alanı', icon: Building2 },
+  { value: '60+', label: 'Uzman Personel', icon: Users }
 ]
 
 export default function HakkimizdaPage() {

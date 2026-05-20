@@ -32,6 +32,7 @@ const tools = [
 const corporate = [
   { name: "Hakkımızda", href: "/hakkimizda" },
   { name: "Projeler", href: "/projeler" },
+  { name: "Referanslar", href: "/referanslar" },
   { name: "Blog", href: "/blog" },
   { name: "SSS", href: "/sss" },
   { name: "İletişim", href: "/iletisim" },
@@ -110,8 +111,8 @@ export function Footer() {
               />
             </Link>
             <p className="text-white/70 mb-6 max-w-sm">
-              Endüstriyel zemin ve tesis çözümlerinde 25+ yıllık tecrübe.
-              Kaliteli malzeme, uzman ekip ve zamanında teslim garantisi.
+              1999&apos;dan bu yana endüstriyel zemin ve tesis çözümlerinde uzman.
+              Kaliteli malzeme, deneyimli ekip ve zamanında teslim garantisi.
             </p>
 
             {/* Contact Info */}

@@ -254,6 +254,19 @@ export function Header() {
               Projeler
             </Link>
 
+            {/* Referanslar */}
+            <Link
+              href="/referanslar"
+              className={cn(
+                "px-4 py-2 rounded-lg font-medium transition-colors",
+                isActive('/referanslar')
+                  ? "text-primary"
+                  : "text-foreground hover:text-primary hover:bg-muted"
+              )}
+            >
+              Referanslar
+            </Link>
+
             {/* Bilgi Merkezi Dropdown */}
             <div
               className="relative"
@@ -431,6 +444,11 @@ export function Header() {
             {/* Projeler */}
             <Link href="/projeler" className="block px-4 py-3 font-medium hover:text-primary">
               Projeler
+            </Link>
+
+            {/* Referanslar */}
+            <Link href="/referanslar" className="block px-4 py-3 font-medium hover:text-primary">
+              Referanslar
             </Link>
 
             {/* Bilgi Merkezi */}

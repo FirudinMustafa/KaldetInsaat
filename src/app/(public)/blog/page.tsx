@@ -45,10 +45,10 @@ export default async function BlogPage() {
   const [posts, categories] = await Promise.all([getBlogPosts(), getBlogCategories()])
 
   return (
-      <div className="min-h-screen bg-gray-50 pt-20">
+      <div className="min-h-screen bg-background pt-20">
         {/* Header */}
         <div className="bg-secondary text-white py-16">
-          <div className="container mx-auto px-4">
+          <div className="container-wide">
             <div className="flex items-center justify-between mb-6">
               <nav className="flex items-center gap-2 text-sm text-white/60">
                 <Link href="/" className="hover:text-white">Ana Sayfa</Link>
@@ -70,12 +70,12 @@ export default async function BlogPage() {
         </div>
 
         {/* Blog Posts */}
-        <div className="container mx-auto px-4 py-12">
+        <div className="container-wide py-12">
           {posts.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-500 text-lg">Henüz yayınlanmış blog yazısı bulunmamaktadır.</p>
-              <p className="text-gray-400 text-sm mt-2">
-                Blog yazıları eklemek için: <code className="bg-gray-100 px-2 py-1 rounded">npm run seed:blog</code>
+              <p className="text-muted-foreground text-lg">Henüz yayınlanmış blog yazısı bulunmamaktadır.</p>
+              <p className="text-muted-foreground/70 text-sm mt-2">
+                Blog yazıları eklemek için: <code className="bg-muted px-2 py-1 rounded">npm run seed:blog</code>
               </p>
             </div>
           ) : (
