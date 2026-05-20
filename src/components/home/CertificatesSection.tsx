@@ -32,7 +32,7 @@ export async function CertificatesSection() {
               Uluslararası Standartlara Uygun Hizmet
             </h2>
             <p className="text-white/70 mb-6">
-              ISO sertifikaları ve kalite belgelerimiz ile güvenilir ve profesyonel hizmet sunuyoruz.
+              ISO sertifikaları ve kalite belgelerimiz, her projede aynı yüksek standardı koruduğumuzun güvencesidir.
             </p>
             <Button className="bg-primary hover:bg-primary/90" asChild>
               <Link href="/sertifikalar" className="gap-2">
@@ -51,7 +51,7 @@ export async function CertificatesSection() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/30 transition-colors">
                     <Award className="w-5 h-5 text-primary" />
                   </div>
                   <div>
